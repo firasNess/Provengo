@@ -1,10 +1,8 @@
 # morning
 
 ---
-2023-03-15 00:17:30
-michael
 
-Provnego project for spec-ing and testing my system.
+Provnego project for spec-ing system.
 
 
 ## Important Files
@@ -15,7 +13,7 @@ Provnego project for spec-ing and testing my system.
     * [hooks](config/hooks) Hook scripts (pre/post/...)
 * [spec](spec) The code creating the specification space lives here. Organized by language.
     * [js](spec/js) JavaScript files
-      * [hello-world.js](spec/js/hello-world.js) Initial model file.
+      * [mainApp.js](spec/js/mainApp.js) Initial model file.
 * [meta-spec](meta-spec) Code for working with the specification space
     * [ensemble-code.js](meta-spec/ensemble-code.js) Sample code for generating test optimized test suites (ensembles)
     * [book-writer.js](meta-spec/book-writer.js) Sample code for generating test books

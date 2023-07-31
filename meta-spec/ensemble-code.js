@@ -14,15 +14,7 @@
     return max-min;
 }
 
-/**
- * List of events "of interest" that we want test suites to cover.
- */
-const GOALS = [
-    Actions.goOut(),
-    // Actions.backToSleep(),
-    // Actions.brushTeeth(),
-    Ctrl.markEvent("good test")
-];
+
 
 /**
  * Ranks test suites by how many times it hits events from the GOALS array.
