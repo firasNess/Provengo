@@ -2,216 +2,195 @@
 
 bthread("main", function(){
 
-    request(Actions.stage("לפתוח את האפליקציה"));
-
-
-    let operationIcon = choose("חינה", "פיקוח");
+    request(Actions.openApp());
+    checkConnection();
     
+        let operationIcon = choose("חינה", "פיקוח");
+
         if (operationIcon === "חינה"){
+            checkConnection();
             request(Actions.clickButton("חינה"));
             let option = choose("דוח חניה חדש", "דוחות אחרונים")
-            
+            checkConnection();
             if (option === "דוח חניה חדש") {
-                
+                    checkConnection();
                     request(Actions.writeInTextField("סמל רישוי"));
                     request(Actions.writeText("332796182"));
+                    checkConnection();
                     if (maybe("מספר הרכב תקין")){
-                        
-                    let baymentWay = choose("Pango", "CelloPark", "תו עירוני" ,"תו נכה", "כלום");
+                        checkConnection();
+                        let baymentWay = choose("Pango", "CelloPark", "תו עירוני" ,"תו נכה", "כלום");
 
-                    if (baymentWay === "Pango"){
-
-                        request(Actions.validField("Pango"));
-
-                    } else if (baymentWay === "CelloPark"){
-
-                        request(Actions.validField("CelloPark"));
-
-                    } else if (baymentWay === "תו עירוני"){
-
-                        request(Actions.validField("תו עירוני"));
-
-                    } else if (baymentWay === "תו נכה"){
-
+                        if (baymentWay === "Pango"){
+                            request(Actions.validField("Pango"));
+                        } else if (baymentWay === "CelloPark"){
+                            request(Actions.validField("CelloPark"));
+                        } else if (baymentWay === "תו עירוני"){
+                            request(Actions.validField("תו עירוני"));
+                        } else if (baymentWay === "תו נכה"){
                         request(Actions.validField("תו נכה"));
-                        
                     } else {
 
                     }
-
                     if(maybe("ללחוץ על מידע נוסף")){
+                        checkConnection();
                         request(Actions.clickButton( "מידע נוסף"));
                         request(Actions.getInomation());
                     }
 
+                    checkConnection();
                     request(Actions.clickButton("המשך"));
+                    checkConnection();
                     request(Actions.getTextOfField("יצרן"));
                     request(Actions.getTextOfField("סוג רכב"));
                     request(Actions.getTextOfField("שנת יצור"));
                     request(Actions.getTextOfField("צבע"));
-                            
-                    if (maybe("למלא את השדות")){
-                        processOfTicket();
-                        request(Actions.clickButton("המשך"));
-                        request(Actions.getInomation());
-                        request(Actions.clickButton("אישור"));
-                    } else {
-                        request(Actions.clickButton("המשך"));
-                        request(Actions.gotErrorMessage("!חובה למלא השדות"));
-                    }
+                    checkConnection();
+                    processOfTicket();
+                    request(Actions.clickButton("המשך"));
+                    request(Actions.getInomation());
+
+                    request(Actions.clickButton("אישור"));
+                    request(Actions.stage("יפתח חלון הדפסה"));
+                    request(Actions.clickButton("Cancel"));
+
+                    
+                    request(Actions.fromImg("הוספת תמונת דוח על שמשת הרכב"));
+                    request(Actions.uploadImg("תמונת הרכב"));
+
 
                     } else {
-                    request(Actions.gotErrorMessage("מספר רכב לא תקין"));
+                    bp.ASSERT(false,"מספר רכב לא תקין");
                     }
                 } 
         } else if (operationIcon === "פיקוח") {
-            request(Actions.clickButton("פיקוח"));
-            request(Actions.operationNotReady("פיקוח"));
+            bp.ASSERT(false, "אין אפשרות להשתמש בפעילות פיקוח");
         }
 });
 
 
 function processOfTicket (){
-    request(Actions.writeInTextField("ביקורת"));
-    request(Actions.writeText("23"));
 
-    request(Actions.writeInTextField("מספר דוח"));
-    request(Actions.writeText("123"));
+    if (maybe("למלא את ביקורת")){
+        checkConnection();
+        request(Actions.writeInTextField("ביקורת"));
+        request(Actions.writeText("23"));
+    } else {
+        request(Actions.fail("חובה למלא את שדה ביקורת"));
+    }
 
-    request(Actions.stage("שלב נוכחי פרטי אירוע"));
 
-    request(Actions.chooseFromDropDown("סעיף"));
-    request(Actions.pickOption("1"));
+    if (maybe("למלא את מספר דוח")){
+        checkConnection();
+        request(Actions.writeInTextField("מספר דוח"));
+        request(Actions.writeText("123"));
+    } else {
+        request(Actions.fail(" חובה למלא את שדה מספר דוח"));
+    }
 
-    request(Actions.chooseFromDropDown("הערה מובנית"));
-    request(Actions.pickOption("אין"));
+    if (maybe("למלא את סעיף")){
+        checkConnection();
+        request(Actions.chooseFromDropDown("סעיף"));
+        request(Actions.pickOption("1"));
+    } else {
+        request(Actions.fail("חובה למלא את שדה השדה"));
+    }
 
-    request(Actions.chooseFromDropDown("שיטת מסירה"));
-    request(Actions.pickOption("רגיל"));
+    if (maybe("למלא את הערה מובנית")){
+        checkConnection();
+        request(Actions.chooseFromDropDown("הערה מובנית"));
+        request(Actions.pickOption("אין"));
+    } else {
+        request(Actions.fail("חובה למלא את שדה השדה"));
+    }
 
-    request(Actions.stage("שלב נוכחי מיקום אירוע"));
 
-    request(Actions.writeInTextField("רחוב"));
-    request(Actions.writeText("דניאל"));
+    if (maybe("למלא את שיטת מסירה")){
+        checkConnection();
+        request(Actions.chooseFromDropDown("שיטת מסירה"));
+        request(Actions.pickOption("רגיל"));
+    } else {
+        request(Actions.fail("חובה למלא את שדה השדה"));
+    }
 
-    request(Actions.writeInTextField("מספר בית"));
-    request(Actions.writeText("1"));
-    
-    request(Actions.writeInTextField("שכונה"));
-    request(Actions.writeText("מורשה"));
+    if (maybe("למלא את רחוב")){
+        checkConnection();
+        request(Actions.writeInTextField("רחוב"));
+        request(Actions.writeText("דניאל"));
+    } else {
+        request(Actions.fail("חובה למלא את שדה השדה"));
+    }
 
-    request(Actions.fromRadioButoon("ציבורי"));
-    request(Actions.clickOnRadioButton("להדליק"));
+    if (maybe("למלא את מספר בית")){
+        checkConnection();
+        request(Actions.writeInTextField("מספר בית"));
+        request(Actions.writeText("1"));
+    } else {
+        request(Actions.fail("חובה למלא את שדה השדה"));
+    }
 
-    request(Actions.chooseFromDropDown("ליד/מול"));
-    request(Actions.pickOption("ליד"));
+    if (maybe("למלא את שכונה ")){
+        checkConnection();
+        request(Actions.writeInTextField("שכונה"));
+        request(Actions.writeText("מורשה"));
+    } else {
+        request(Actions.fail("חובה למלא את שדה השדה"));
+    }
 
-    request(Actions.writeInTextField("תאור המקום"));
-    request(Actions.writeText("כלום"));
+    if (maybe("למלא את ציבורי ")){
+        checkConnection();
+        request(Actions.fromRadioButoon("ציבורי"));
+        request(Actions.clickOnRadioButton("להדליק"));
+    } else {
+        request(Actions.fail("חובה למלא את שדה השדה"));
+    }
 
-    request(Actions.stage("שלב נוכחי אירוע חניה"));
+    if (maybe("למלא את מול/ליד ")){
+        checkConnection();
+        request(Actions.chooseFromDropDown("ליד/מול"));
+        request(Actions.pickOption("ליד"));
+    } else {
+        request(Actions.fail("חובה למלא את השדה"));
+    }
 
-    request(Actions.fromImg("תמונת תמרור"));
-    request(Actions.writeText("תמונה אישית"));
+    if (maybe(" למלא את תאור המקום ")){
+        checkConnection();
+        request(Actions.writeInTextField("תאור המקום"));
+        request(Actions.writeText("כלום"));
+    } else {
+        request(Actions.fail("חובה למלא את שדה השדה"));
+    }
 
-    request(Actions.fromImg("תמונת חניה"));
-    request(Actions.writeText("תמונה לרכב"));
+    if (maybe(" למלא את תמונת תמרור ")){
+        checkConnection();
+        request(Actions.fromImg("תמונת תמרור"));
+        request(Actions.writeText("תמונה אישית"));
+    } else {
+        request(Actions.fail("חובה למלא את שדה השדה"));
+    }
 
-    request(Actions.writeInTextField("הערות"));
-    request(Actions.writeText("אין"));
+    if (maybe(" למלא את תמונת חניה ")){
+        checkConnection();
+        request(Actions.fromImg("תמונת חניה"));
+        request(Actions.writeText("תמונה לרכב"));
+    } else {
+        request(Actions.fail("חובה למלא את שדה השדה"));
+    }
+
+    if (maybe(" למלא את הערות ")){
+        checkConnection();
+        request(Actions.writeInTextField("הערות"));
+        request(Actions.writeText("אין"));
+    } else {
+        request(Actions.fail("חובה למלא את שדה השדה"));
+    }
+
 }
 
-
-// function processOfTicket (){
-//     request(Actions.stage("שלב נוכחי פרטי אירוע"));
-
-//     if (maybe("למלא את סעיף")){
-//         request(Actions.chooseFromDropDown("סעיף"));
-//         request(Actions.pickOption("1"));
-//     } else {
-//         request(Actions.gotErrorMessage("חובה למלא את השדה"));
-//     }
-
-//     if (maybe("למלא את הערה מובנית")){
-//         request(Actions.chooseFromDropDown("הערה מובנית"));
-//         request(Actions.pickOption("אין"));
-//     } else {
-//         request(Actions.gotErrorMessage("חובה למלא את השדה"));
-//     }
-
-//     request(Actions.stage("שלב נוכחי מיקום אירוע"));
-
-//     if (maybe("למלא את שיטת מסירה")){
-//         request(Actions.chooseFromDropDown("שיטת מסירה"));
-//         request(Actions.pickOption("רגיל"));
-//     } else {
-//         request(Actions.gotErrorMessage("חובה למלא את השדה"));
-//     }
-
-//     if (maybe("למלא את רחוב")){
-//         request(Actions.writeInTextField("רחוב"));
-//         request(Actions.writeText("דניאל"));
-//     } else {
-//         request(Actions.gotErrorMessage("חובה למלא את השדה"));
-//     }
-
-//     if (maybe("למלא את מספר בית")){
-//         request(Actions.writeInTextField("מספר בית"));
-//         request(Actions.writeText("1"));
-//     } else {
-//         request(Actions.gotErrorMessage("חובה למלא את השדה"));
-//     }
-
-//     if (maybe("למלא את שכונה ")){
-//         request(Actions.writeInTextField("שכונה"));
-//         request(Actions.writeText("מורשה"));
-//     } else {
-//         request(Actions.gotErrorMessage("חובה למלא את השדה"));
-//     }
-
-//     if (maybe("למלא את ציבורי ")){
-//         request(Actions.fromRadioButoon("ציבורי"));
-//         request(Actions.clickOnRadioButton("להדליק"));
-//     } else {
-//         request(Actions.gotErrorMessage("חובה למלא את השדה"));
-//     }
-
-//     if (maybe("למלא את מול/ליד ")){
-//         request(Actions.chooseFromDropDown("ליד/מול"));
-//         request(Actions.pickOption("ליד"));
-//     } else {
-//         request(Actions.gotErrorMessage("חובה למלא את השדה"));
-//     }
-
-//     request(Actions.stage("שלב נוכחי אירוע חניה"));
-
-//     if (maybe(" למלא את תאור המקום ")){
-//         request(Actions.writeInTextField("תאור המקום"));
-//         request(Actions.writeText("כלום"));
-//     } else {
-//         request(Actions.gotErrorMessage("חובה למלא את השדה"));
-//     }
-
-//     if (maybe(" למלא את תמונת תמרור ")){
-//         request(Actions.fromImg("תמונת תמרור"));
-//         request(Actions.writeText("תמונה אישית"));
-//     } else {
-//         request(Actions.gotErrorMessage("חובה למלא את השדה"));
-//     }
-
-//     if (maybe(" למלא את תמונת חניה ")){
-//         request(Actions.fromImg("תמונת חניה"));
-//         request(Actions.writeText("תמונה לרכב"));
-//     } else {
-//         request(Actions.gotErrorMessage("חובה למלא את השדה"));
-//     }
-
-//     if (maybe(" למלא את הערות ")){
-//         request(Actions.writeInTextField("הערות"));
-//         request(Actions.writeText("אין"));
-//     } else {
-//         request(Actions.gotErrorMessage("חובה למלא את השדה"));
-//     }
-
-// }
-
+function checkConnection(){
+    if (maybe("מחובר לאינטרנט")){
+        request(Actions.gotMessage("בוצע חיבור תקין"))
+    } else {
+        bp.ASSERT(false,"יש בעיה בחיבור לאינטרנט");    
+    }
+}
