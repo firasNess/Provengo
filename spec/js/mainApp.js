@@ -11,12 +11,10 @@ bthread("main", function(){
             checkConnection();
             request(Actions.clickButton("חינה"));
             let option = choose("דוח חניה חדש", "דוחות אחרונים")
-            checkConnection();
             if (option === "דוח חניה חדש") {
                     checkConnection();
                     request(Actions.writeInTextField("סמל רישוי"));
                     request(Actions.writeText("332796182"));
-                    checkConnection();
                     if (maybe("מספר הרכב תקין")){
                         checkConnection();
                         let baymentWay = choose("Pango", "CelloPark", "תו עירוני" ,"תו נכה", "כלום");
@@ -40,12 +38,10 @@ bthread("main", function(){
 
                     checkConnection();
                     request(Actions.clickButton("המשך"));
-                    checkConnection();
                     request(Actions.getTextOfField("יצרן"));
                     request(Actions.getTextOfField("סוג רכב"));
                     request(Actions.getTextOfField("שנת יצור"));
                     request(Actions.getTextOfField("צבע"));
-                    checkConnection();
                     processOfTicket();
                     request(Actions.clickButton("המשך"));
                     request(Actions.getInomation());
@@ -57,6 +53,7 @@ bthread("main", function(){
                     
                     request(Actions.fromImg("הוספת תמונת דוח על שמשת הרכב"));
                     request(Actions.uploadImg("תמונת הרכב"));
+                    Ctrl.doMark("Full Scenario");
 
 
                     } else {
