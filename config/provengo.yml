@@ -4,5 +4,4 @@ sample:
   delete-previous: true
 
 run:
-  max-depth: 100
-
+  max-depth: 150
