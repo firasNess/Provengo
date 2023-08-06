@@ -53,7 +53,8 @@ bthread("main", function(){
                     
                     request(Actions.fromImg("הוספת תמונת דוח על שמשת הרכב"));
                     request(Actions.uploadImg("תמונת הרכב"));
-                    Ctrl.doMark("End of Scenario");
+                    request(Actions.typeTicket());
+
 
 
                     } else {
@@ -70,7 +71,6 @@ function processOfTicket (){
 
     if (maybe("למלא את ביקורת")){
         checkConnection();
-        // to do : function to run like before function
         request(Actions.writeInTextField("ביקורת"));
         request(Actions.writeText("23"));
     } else {

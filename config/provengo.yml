@@ -1,7 +1,7 @@
 version: 2
-max_depth: 150
+max_depth: 200
 sample:
   delete-previous: true
 
 run:
-  max-depth: 150
+  max-depth: 200

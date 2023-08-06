@@ -18,7 +18,7 @@
  * List of events "of interest" that we want test suites to cover.
  */
 const GOALS = [
-    Actions.goOut(),
+    Actions.typeTicket(),
     // Actions.backToSleep(),
     // Actions.brushTeeth(),
     Ctrl.markEvent("good test")
