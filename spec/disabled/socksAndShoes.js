@@ -1,13 +1,13 @@
 // @provengo summon constraints
 // https://docs.provengo.tech/main/site/ProvengoCli/0.9.5/libraries/constraints.html
 
-Constraints.block(Actions.wear("shoes"))
-           .until(Actions.wear("socks"));
+Constraints.block(Actions.clickButton("חינה"))
+           .until(Actions.openApp());
 
-// bthread("no shoes until socks", function(){
+// bthread("לא יכול לבחור לפני פתיחת אפליקציה", function(){
 //     sync({
-//         block: Actions.wear("shoes"),
-//         waitFor: Actions.wear("socks")
+//         block: Actions.clickButton("חינה"),
+//         waitFor: Actions.openApp()
 //     });
 // });
         
